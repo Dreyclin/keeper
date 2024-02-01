@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
+import axios from 'axios';
 
 function App() {
 
     const [fullNote, setFullNote] = useState({});
     const [notes, setNotes] = useState([]);
-    
     const {title, content} = fullNote;
-    
+
     function handleChange(event) {
         const {value, name} = event.target
 
