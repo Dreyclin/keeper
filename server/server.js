@@ -25,6 +25,14 @@ app.get("/load", (req, res) => {
 
 })
 
+app.post("/delete", (req, res) => {
+    const itemId = req.body.id;
+
+    Item.findByIdAndDelete(itemId).then(() => {
+        res.redirect("/load");
+    })
+})
+
 app.post('/add', (req, res) => {
     const title = req.body.title;
     const content = req.body.content;
@@ -34,9 +42,11 @@ app.post('/add', (req, res) => {
         content: content,
     })
 
-    newItem.save();
+    newItem.save().then(() => {
+        res.redirect("/load");
+    });
 
-    res.send("Successfully added!");
+  
 })
 
 app.listen(port, () => {
