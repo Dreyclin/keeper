@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function App() {
 
-    const [fullNote, setFullNote] = useState({});
+    const [fullNote, setFullNote] = useState({title: "", content: ""});
     const [notes, setNotes] = useState([]);
     const {title, content} = fullNote;
 
@@ -20,9 +20,14 @@ function App() {
     }
 
     function handleAddClick(event) {
-        setNotes([...notes, fullNote]);
-        setFullNote({title: "", content: ""});
         event.preventDefault();
+        setNotes([...notes, fullNote]);
+        
+        axios.post('/add', {title, content}).then((response) => {
+            setFullNote({title: "", content: ""});
+        }).catch((err) => {
+            console.error("Error adding note: ", err);
+        })
     }
 
     function handleDeleteClick(id) {
